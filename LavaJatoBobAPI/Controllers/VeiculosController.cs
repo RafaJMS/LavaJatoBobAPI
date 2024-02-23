@@ -28,7 +28,7 @@ namespace LavaJatoBobAPI.Controllers
           {
               return NotFound();
           }
-            return await _context.Veiculos.ToListAsync();
+            return await _context.Veiculos.Include(x => x.IdClienteNavigation).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         // GET: api/Veiculos/5
