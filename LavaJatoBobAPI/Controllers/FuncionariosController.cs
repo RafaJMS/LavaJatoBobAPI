@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LavaJatoBobAPI.Models;
+using NuGet.Versioning;
 
 namespace LavaJatoBobAPI.Controllers
 {
@@ -39,7 +40,7 @@ namespace LavaJatoBobAPI.Controllers
           {
               return NotFound();
           }
-            var funcionario = await _context.Funcionarios.FindAsync(id);
+            var funcionario = await _context.Funcionarios.Include(x=>x.Veiculos).ThenInclude(x=>x.IdClienteNavigation).FirstAsync(x=>x.Id==id);
 
             if (funcionario == null)
             {

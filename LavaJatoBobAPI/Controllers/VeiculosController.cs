@@ -39,7 +39,7 @@ namespace LavaJatoBobAPI.Controllers
           {
               return NotFound();
           }
-            var veiculo = await _context.Veiculos.FindAsync(id);
+            var veiculo = await _context.Veiculos.Include(x=>x.IdClienteNavigation).FirstOrDefaultAsync(x => x.Id == id);
 
             if (veiculo == null)
             {
