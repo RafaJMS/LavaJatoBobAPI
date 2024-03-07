@@ -28,7 +28,7 @@ namespace LavaJatoBobAPI.Controllers
           {
               return NotFound();
           }
-            return await _context.Clientes.ToListAsync();
+            return await _context.Clientes.Include(x => x.Veiculos).ThenInclude(x => x.IdFuncionarioNavigation).ToListAsync();
         }
 
         // GET: api/Clientes/5
@@ -39,7 +39,7 @@ namespace LavaJatoBobAPI.Controllers
           {
               return NotFound();
           }
-            var cliente = await _context.Clientes.FindAsync(id);
+            var cliente = await _context.Clientes.Include(x=>x.Veiculos).ThenInclude(x=>x.IdFuncionarioNavigation).FirstAsync(x=>x.Id == id);
 
             if (cliente == null)
             {

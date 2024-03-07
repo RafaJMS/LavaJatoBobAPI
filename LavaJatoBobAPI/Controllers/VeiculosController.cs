@@ -28,7 +28,7 @@ namespace LavaJatoBobAPI.Controllers
           {
               return NotFound();
           }
-            return await _context.Veiculos.Include(x => x.IdClienteNavigation).FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Veiculos.Include(x => x.IdClienteNavigation).Include(x => x.IdFuncionarioNavigation).ToListAsync();
         }
 
         // GET: api/Veiculos/5
@@ -39,7 +39,7 @@ namespace LavaJatoBobAPI.Controllers
           {
               return NotFound();
           }
-            var veiculo = await _context.Veiculos.Include(x=>x.IdClienteNavigation).FirstOrDefaultAsync(x => x.Id == id);
+            var veiculo = await _context.Veiculos.Include(x=>x.IdClienteNavigation).Include(x=>x.IdFuncionarioNavigation).FirstOrDefaultAsync(x => x.Id == id);
 
             if (veiculo == null)
             {
@@ -90,7 +90,7 @@ namespace LavaJatoBobAPI.Controllers
               return Problem("Entity set 'LavaJatoBobContext.Veiculos'  is null.");
           }
             _context.Veiculos.Add(veiculo);
-            await _context.SaveChangesAsync();
+            await _context.Veiculos.Include(x => x.IdClienteNavigation).Include(x => x.IdFuncionarioNavigation).ToListAsync();
 
             return CreatedAtAction("GetVeiculo", new { id = veiculo.Id }, veiculo);
         }

@@ -29,7 +29,7 @@ namespace LavaJatoBobAPI.Controllers
           {
               return NotFound();
           }
-            return await _context.Funcionarios.ToListAsync();
+            return await _context.Funcionarios.Include(x => x.Veiculos).ThenInclude(x => x.IdClienteNavigation).ToListAsync();
         }
 
         // GET: api/Funcionarios/5
