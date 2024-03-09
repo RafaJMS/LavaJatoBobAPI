@@ -90,7 +90,7 @@ namespace LavaJatoBobAPI.Controllers
               return Problem("Entity set 'LavaJatoBobContext.Veiculos'  is null.");
           }
             _context.Veiculos.Add(veiculo);
-            await _context.Veiculos.Include(x => x.IdClienteNavigation).Include(x => x.IdFuncionarioNavigation).ToListAsync();
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetVeiculo", new { id = veiculo.Id }, veiculo);
         }
